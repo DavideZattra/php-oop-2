@@ -40,6 +40,8 @@ class Item{
  */
 class CreditCard{
 
+    use naming;
+
     protected $number;
     protected $cvv;
     protected $expireDate;
@@ -48,13 +50,17 @@ class CreditCard{
     /**
      * create a new credit card
      * 
+     * @param string $name name of the owner
+     * @param string $surname surname of the owner
      * @param int $number identifier of the credit card
      * @param int $cvv CVV code behind the credit card
      * @param string $expireDate date of expiration of the credit card
      * @param string $circuit type of circuit of the credit card
      */
-    public function __construct( $number, $cvv, $expireDate , $circuit){
+    public function __construct($name, $surname, $number, $cvv, $expireDate , $circuit){
         
+        $this->name = $name;
+        $this->surname = $surname;
         $this->number = $number;
         $this->cvv = $cvv;
         $this->expireDate = $expireDate;
@@ -70,8 +76,8 @@ class CreditCard{
  */
 class User{
 
-    protected $name;
-    protected $surname;
+    use naming;
+
     protected $dateOfBirth;
     protected $fiscalCode;
     protected $availableCreditCard = [];
@@ -100,12 +106,12 @@ class User{
     
     /**
      * Push a creditCard(Object) in the array of available credit card
+     * 
+     * @param object $creditCard credit card to insert in the available cards
      */
     public function insertCreditCard($creditCard){
 
         array_push($this->availableCreditCard, $creditCard);
-
-
 
     }
 
@@ -129,11 +135,18 @@ class User{
     
 }
 
+trait naming {
+
+    public $name;
+    public $surname;
+
+}
+
 
 
 $pippo = new User('pippo', 'franco', '22/05/1940', 'PIPFRN40E22L682Z' );
 
-$newCreditCard = new CreditCard( 8006007700804408, 868, '25/05/2022', 'Visa');
+$newCreditCard = new CreditCard('gianni', 'fantoni', 8006007700804408, 868, '25/05/2022', 'Visa');
 ?>
 
 
